@@ -14,9 +14,9 @@ namespace ADDSMonitoringDemo.Controllers
     {
         private readonly ProcessService _processService;
 
-        public ADDSDemoController(ProcessService processService)
+        public ADDSDemoController()
         {
-            _processService = processService;
+            _processService = new ProcessService();
         }
 
         [HttpPost("start")]
@@ -38,9 +38,8 @@ namespace ADDSMonitoringDemo.Controllers
     {
         private static ElasticOptions _elasticOptions = new ElasticOptions();
         private static ElasticsearchClient? _client;
-        readonly ElasticsearchClient _elasticClient;
 
-        public ProcessService(Uri elasticsearchUri, string apiKey, string cloudId)
+        public ProcessService()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -65,14 +64,14 @@ namespace ADDSMonitoringDemo.Controllers
                 StartTimestamp = DateTime.UtcNow
             };
 
-            await _elasticClient.IndexAsync(document);
+            var result = await _client.IndexAsync(document, idx => idx.Index("addsmonitoring"));
 
             return id;
         }
         public async Task StopProcessAsync(ProcessRequest request)
         {
             var id = GetHash(request);
-            var startProcess = await _elasticClient.GetAsync<ProcessDocument>(id);
+            var startProcess = await _client.GetAsync<ProcessDocument>(id, idx => idx.Index("addsmonitoring"));
             var startTimestamp = startProcess.Source.StartTimestamp;
             var stopTimestamp = DateTime.UtcNow;
             var duration =  stopTimestamp - startTimestamp;
@@ -85,12 +84,12 @@ namespace ADDSMonitoringDemo.Controllers
                 Prop3 = request.Prop3,
                 Prop4 = request.Prop4,
                 Prop5 = request.Prop5,
-                StartTimestamp = DateTime.UtcNow,
+                StartTimestamp = startTimestamp,
                 StopTimestamp = stopTimestamp,
                 Duration = duration
             };
 
-            await _elasticClient.IndexAsync(document);
+            await _client.IndexAsync(document, idx => idx.Index("addsmonitoring"));
         }
 
         private string GetHash(ProcessRequest request)
