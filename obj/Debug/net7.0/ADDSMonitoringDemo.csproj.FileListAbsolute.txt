@@ -1,0 +1,7 @@
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.csproj.AssemblyReference.cache
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.GeneratedMSBuildEditorConfig.editorconfig
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.AssemblyInfoInputs.cache
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.AssemblyInfo.cs
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.csproj.CoreCompileInputs.cache
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.MvcApplicationPartsAssemblyInfo.cs
+F:\ADDSMonitoringDemo\obj\Debug\net7.0\ADDSMonitoringDemo.MvcApplicationPartsAssemblyInfo.cache
